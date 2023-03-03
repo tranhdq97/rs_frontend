@@ -28,6 +28,15 @@ jobs:
       - name: Setup node.js environment
         uses: actions/setup-node@v2.1.2
       
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.3.0
+        with:
+          file_name: .env
+          directory: '.'
+          NODE_ENV: 'production'
+          STF_API: ${{ secrets.STF_API }}
+          STG_API: ${{ secrets.STG_API }}
+      
       - name: Npm install & npm build
         run: |
           npm install
