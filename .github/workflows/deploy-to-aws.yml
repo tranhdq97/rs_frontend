@@ -39,6 +39,7 @@ jobs:
       
       - name: Npm install & npm build
         run: |
+          cat .env
           npm install
           npm run build
       
