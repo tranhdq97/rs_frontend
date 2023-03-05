@@ -1,7 +1,7 @@
 <template>
   <LAuthForm @keyup.enter="signUp">
     <template v-slot:icon>
-      <img src="@/assets/icons/sign-up.png" />
+      <div>SIGN UP</div>
     </template>
     <template v-slot:fields>
       <CEnterField
