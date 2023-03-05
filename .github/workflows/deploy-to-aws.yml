@@ -31,7 +31,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/rs_frontend
+            git checkout main
             git pull
             npm run build
-            cp -r dist/* /var/www/rs/
-            systemctl restart nginx
+            sudo cp -r dist/* /var/www/rs/
+            sudo systemctl restart nginx
