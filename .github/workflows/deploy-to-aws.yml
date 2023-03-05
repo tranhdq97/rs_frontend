@@ -33,6 +33,5 @@ jobs:
             cd ~/rs_frontend
             git checkout main
             git pull
-            npm run build
             sudo cp -r dist/* /var/www/rs/
             sudo systemctl restart nginx
