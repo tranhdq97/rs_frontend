@@ -5,8 +5,10 @@ import { ESStaff } from "@/enums/store";
 import { IAListRes } from "@/interfaces/api";
 import { IFStaff, IFStaffRep } from "@/interfaces/staff";
 import { concatList } from "@/utils/common";
+import { toUnderscore } from "@/utils/str";
 import { toDMY } from "@/utils/time";
 import { formURL } from "@/utils/url";
+import { useI18n } from "vue3-i18n";
 import { Commit } from "vuex";
 
 export interface IFState {
@@ -36,6 +38,7 @@ export default {
           ![staff?.type?.id || 0, 1].includes(item?.type?.id || 0)
       );
       const staffReps: IFStaffRep[] = [];
+      const { t } = useI18n();
       staffs.map((item) => {
         staffReps.push({
           id: item.id as number,
@@ -43,7 +46,7 @@ export default {
           first_name: item?.profile?.first_name as string,
           last_name: item?.profile?.last_name as string,
           email: item?.email,
-          type: item?.type?.name as string,
+          type: t(toUnderscore(item?.type?.name || "", true)),
           dob: toDMY(item?.profile?.dob as Date, "/"),
           sex: item?.profile?.sex?.name as string,
           address: concatList(

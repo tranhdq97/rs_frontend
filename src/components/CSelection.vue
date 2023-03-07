@@ -49,4 +49,8 @@ select {
     border: 1px solid var(--c-primary);
   }
 }
+option,
+select {
+  text-transform: capitalize;
+}
 </style>

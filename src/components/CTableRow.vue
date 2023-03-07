@@ -10,11 +10,14 @@
       :key="column"
       @click="(funcs || {})[column]"
     >
-      <div :class="(classes || {})[column]">
+      <div :class="(classes || {})[column] + ' center'">
         {{ column ? (row || {})[column] : "" }}
-        <span class="material-icons" @click="$emit('spanClicked', column)">{{
-          (icons || {})[column]
-        }}</span>
+        <span
+          v-if="(icons || {})[column]"
+          class="material-icons"
+          @click="$emit('spanClicked', column)"
+          >{{ (icons || {})[column] }}</span
+        >
       </div>
     </td>
   </tr>
@@ -53,5 +56,8 @@ span:hover {
 }
 div {
   gap: var(--s-small);
+}
+.center {
+  align-items: center;
 }
 </style>
