@@ -25,10 +25,7 @@ export default defineComponent({
         updateData: { type_id: selectedId.value },
       });
     }
-    const log = (x: number) => {
-      console.log(x);
-    };
-    return { concatList, update, log, ECommon, selectedId, isChanged };
+    return { concatList, update, ECommon, selectedId, isChanged };
   },
   components: { CButton, CSelection },
 });
