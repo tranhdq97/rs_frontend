@@ -28,6 +28,7 @@ export default {
       const URL = formURL(EAMaster.LIST, [
         { key: ERouterParams.MASTER_NAME, value: EMasterModel.MENU_TYPE },
       ]);
+      console.log("URL", URL);
       const res: IAListRes = await axios.get(URL);
       state.typeList = res.results as IFMasterData[];
       state.typeList.map((item) => {

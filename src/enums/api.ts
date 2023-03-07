@@ -24,9 +24,9 @@ export enum EACustomer {
 }
 
 export enum EAMaster {
-  CREATE = "api/master/:master_name/create",
-  LIST = "api/master/:master_name/list",
-  DELETE = "api/master/:master_name/:id/list",
+  CREATE = "/api/master/:master_name/create",
+  LIST = "/api/master/:master_name/list",
+  DELETE = "/api/master/:master_name/:id/list",
 }
 
 export enum EAMenu {

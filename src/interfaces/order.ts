@@ -26,3 +26,16 @@ export interface IFOrderItem {
   updated_at?: Date | string;
   created_by?: IFStaff;
 }
+
+export interface IFOrderedItemRep {
+  id: number;
+  name: string;
+  quantity: number;
+  served_quantity: number;
+  price: string;
+  created_at: string;
+  served_at: string;
+  total: string;
+  created_by: string;
+  iconClasses: object;
+}

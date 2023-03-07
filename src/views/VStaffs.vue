@@ -28,13 +28,25 @@ export default defineComponent({
       ETPCommon.TYPE,
       ETPCommon.DETAIL,
     ];
+    const headers = {
+      id: ETPCommon.ID,
+      sex: ETPProfile.SEX,
+      first_name: ETPProfile.FIRST_NAME,
+      last_name: ETPProfile.LAST_NAME,
+      phone_number: ETPProfile.PHONE_NUMBER,
+      email: ETPStaff.EMAIL,
+      dob: ETPProfile.DOB,
+      detail: ETPCommon.DETAIL,
+      address: ETPProfile.ADDRESS,
+      type: ETPCommon.TYPE,
+    };
     const classes = {
       id: "text-center",
       sex: "text-center",
       first_name: "justify-content-left",
       last_name: "justify-content-left",
       phone_number: "justify-content-right",
-      email: "justify-content-right lowercase",
+      email: "justify-content-left lowercase",
       dob: "no-wrap",
       detail: "text-center",
     };
@@ -72,6 +84,7 @@ export default defineComponent({
     }
     return {
       columns,
+      headers,
       classes,
       staffs,
       icons,
@@ -89,7 +102,12 @@ export default defineComponent({
 <template>
   <div class="container wrap">
     <table>
-      <CTableRow :isHeader="true" :columns="columns" class="header" />
+      <CTableRow
+        :isHeader="true"
+        :columns="columns"
+        class="header"
+        :headers="headers"
+      />
       <tbody>
         <CTableRow
           v-for="(row, i) in staffs"
