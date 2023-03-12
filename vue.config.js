@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: process.env.NODE_ENV === "local" ? "/" : "/",
+  publicPath: "/",
   pluginOptions: {
     i18n: {
       locale: "en",
@@ -15,15 +15,10 @@ module.exports = defineConfig({
   },
   devServer: {
     proxy: {
-      "^/stf": {
+      "^/api": {
         target: process.env.STF_API,
         changeOrigin: true,
-        pathRewrite: { "^/stf": "/api" },
-      },
-      "^/stg": {
-        target: process.env.STG_API,
-        changeOrigin: true,
-        pathRewrite: { "^/stg": "/api" },
+        pathRewrite: { "^/api": "/api" },
       },
     },
   },

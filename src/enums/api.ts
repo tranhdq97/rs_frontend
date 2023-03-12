@@ -12,7 +12,7 @@ export enum EAAuth {
   TOKEN = "/api/auth/token",
   REFRESH_TOKEN = "/api/auth/token/refresh",
   GET_ME = "/api/auth/get-me",
-  CHANGE_PASSWORD = "api/auth/change-password",
+  CHANGE_PASSWORD = "/api/auth/change-password",
 }
 
 export enum EACustomer {
@@ -24,9 +24,9 @@ export enum EACustomer {
 }
 
 export enum EAMaster {
-  CREATE = "api/master/:master_name/create",
-  LIST = "api/master/:master_name/list",
-  DELETE = "api/master/:master_name/:id/list",
+  CREATE = "/api/master/:master_name/create",
+  LIST = "/api/master/:master_name/list",
+  DELETE = "/api/master/:master_name/:id/list",
 }
 
 export enum EAMenu {

@@ -78,3 +78,7 @@ export enum EMasterModel {
 export enum EMessage {
   PERMISSION_DENIED = "permission_denied",
 }
+
+export enum EAssets {
+  LOGO = "https://restaurant-bucket-tranhdq-1.s3.ap-southeast-1.amazonaws.com/assets/Ge.svg",
+}

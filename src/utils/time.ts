@@ -18,7 +18,7 @@ export function untilNow(fromDate: Date): IFTimeDiff | null {
   };
 }
 
-export function toTime(time: Date): string {
+export function toTime(time: Date | undefined): string {
   if (!time) return "";
   return new Date(time).toTimeString().split(" ")[0];
 }

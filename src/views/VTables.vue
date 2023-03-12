@@ -37,4 +37,9 @@ export default defineComponent({
   column-gap: var(--s-medium);
   flex: 1 0 0;
 }
+@media screen and (max-width: 480px) {
+  .container {
+    justify-content: center;
+  }
+}
 </style>

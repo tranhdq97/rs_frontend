@@ -27,15 +27,16 @@ export default defineComponent({});
   align-items: center;
 }
 .icon {
-  height: 100px;
-  margin-bottom: var(--s-large);
+  height: 120px;
+  margin-bottom: var(--s-small);
 }
 .form {
   min-width: 300px;
-  background: rgb(240, 250, 240);
+  // background: rgb(240, 250, 240);
+  background: rgb(255, 255, 255);
   border-radius: var(--br-large);
   padding: var(--s-large);
-  box-shadow: -2px -2px 2px var(--bs-color), 2px 2px 2px var(--bs-color);
+  box-shadow: -2px -2px 2px var(--c-primary), 2px 2px 2px var(--c-grey);
 }
 .section {
   width: 100%;
