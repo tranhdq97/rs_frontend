@@ -1,4 +1,4 @@
-import { ECommon } from "@/enums/common";
+import { EAssets, ECommon } from "@/enums/common";
 
 export function toExchange(money: number): string {
   const currentLocale = localStorage.getItem(ECommon.LOCALE)?.toString();
@@ -46,4 +46,8 @@ export function concatList(array: any[], factor: string): string {
     if (item) text += (index === 0 ? "" : factor) + item;
   });
   return text;
+}
+
+export function toImgUrl(imgUrl: string): string {
+  return imgUrl ? imgUrl : EAssets.DEFAULT_IMG;
 }

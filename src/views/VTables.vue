@@ -21,7 +21,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container">
+  <div class="page container">
     <CTableRep v-for="(table, i) in tables" :key="i" :table="table" />
     <CAddButton @click="addTable" />
   </div>

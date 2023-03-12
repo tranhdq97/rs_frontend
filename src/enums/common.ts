@@ -43,6 +43,7 @@ export enum ECommon {
   MEAL_TYPE = "meal_type",
   ROLE = "role",
   PHOTO = "photo",
+  ADD_PHOTO = "add_photo",
 }
 
 export enum EPlaceHolder {
@@ -81,4 +82,5 @@ export enum EMessage {
 
 export enum EAssets {
   LOGO = "https://restaurant-bucket-tranhdq-1.s3.ap-southeast-1.amazonaws.com/assets/Ge.svg",
+  DEFAULT_IMG = "https://restaurant-bucket-tranhdq-1.s3.ap-southeast-1.amazonaws.com/assets/defaultImg.png",
 }

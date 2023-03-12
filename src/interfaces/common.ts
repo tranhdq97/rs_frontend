@@ -53,3 +53,7 @@ export interface IFRouterParams {
   key: string;
   value: string | number | boolean | undefined;
 }
+
+export interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}

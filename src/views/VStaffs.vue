@@ -100,7 +100,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container wrap">
+  <div class="page wrap">
     <table>
       <CTableRow
         :isHeader="true"

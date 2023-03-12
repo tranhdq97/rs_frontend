@@ -6,7 +6,6 @@ import CImageUploader from "@/components/CImageUploader.vue";
 import CMenuItem from "@/components/CMenuItem.vue";
 import CSelection from "@/components/CSelection.vue";
 import CTextArea from "@/components/CTextArea.vue";
-import { ESFileManagement } from "@/enums/store";
 import { ECommon, EPlaceHolder } from "@/enums/common";
 import { ESAuth, ESMenu, ESMenuType } from "@/enums/store";
 import { EIDStaffType } from "@/enums/value_id";
@@ -14,6 +13,7 @@ import { IFMenuItem } from "@/interfaces/menu";
 import LAModal from "@/layouts/LAModal.vue";
 import { defineComponent, computed, ref } from "vue";
 import { useStore } from "vuex";
+import { IFFileManagement } from "@/interfaces/file_management";
 
 export default defineComponent({
   setup() {
@@ -26,7 +26,7 @@ export default defineComponent({
     const newMeal = ref<IFMenuItem>({
       name: "",
     });
-    const previewImage = ref("");
+    const uploadedImage = ref("");
     const isManager = computed(
       () =>
         staff.value?.type?.id &&
@@ -41,12 +41,9 @@ export default defineComponent({
         newMeal.value?.price &&
         newMeal.value?.photo_id
     );
-    async function handleImageUpload(e: Blob) {
-      const image = await store.dispatch(ESFileManagement.A_UPLOAD_FILE, {
-        file: e,
-      });
-      newMeal.value.photo_id = image.id;
-      previewImage.value = image.file;
+    async function handleImageUpload(fileManagement: IFFileManagement) {
+      newMeal.value.photo_id = fileManagement.id;
+      uploadedImage.value = fileManagement.file as string;
     }
     async function handleAddMeal() {
       await store.dispatch(ESMenu.A_ADD_MEAL, newMeal.value);
@@ -62,7 +59,7 @@ export default defineComponent({
       ECommon,
       EPlaceHolder,
       menuTypes,
-      previewImage,
+      uploadedImage,
       isAddMealAllowed,
       handleImageUpload,
       handleAddMeal,
@@ -82,7 +79,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container">
+  <div class="page">
     <CAddButton v-if="isManager" @click="isModalOpening = true" />
     <div class="menu-list">
       <CMenuItem v-for="(meal, id) in menu" :key="id" :meal="meal" />
@@ -115,8 +112,8 @@ export default defineComponent({
     />
     <CImageUploader
       :title="ECommon.PHOTO"
-      :preview="previewImage"
-      @onFileSelected="(e) => handleImageUpload(e)"
+      :uploaded="uploadedImage"
+      @imageUpdated="(e) => handleImageUpload(e)"
     />
     <CButton
       :name="ECommon.ADD_MEAL"
@@ -127,11 +124,6 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-.container {
-  align-content: flex-start;
-  justify-content: space-between;
-  width: 100%;
-}
 .menu-list {
   gap: var(--s-large);
   flex-wrap: wrap;

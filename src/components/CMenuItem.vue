@@ -1,5 +1,5 @@
 <script lang="ts">
-import { toExchange } from "@/utils/common";
+import { toExchange, toImgUrl } from "@/utils/common";
 import { ESCart } from "@/enums/store";
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
@@ -13,7 +13,7 @@ export default defineComponent({
     const isInCart = computed(() =>
       store.getters[ESCart.G_IS_IN_CART](props.meal?.id)
     );
-    return { store, isInCart, toExchange };
+    return { store, isInCart, toExchange, toImgUrl };
   },
 });
 </script>
@@ -25,8 +25,7 @@ export default defineComponent({
       (isInCart ? ' in-cart' : '' + (!meal?.is_available ? ' disabled' : ''))
     "
   >
-    <img v-if="meal?.photo" :src="meal?.photo?.file" />
-    <img v-else src="@/assets/images/defaultImg.png" />
+    <img v-if="toImgUrl(meal?.photo?.file)" />
     <div class="info">
       <div class="text-info">
         <div class="title">{{ meal?.name }}</div>
