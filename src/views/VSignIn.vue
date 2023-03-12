@@ -1,7 +1,7 @@
 <template>
   <LAuthForm @keyup.enter="signIn">
     <template v-slot:icon>
-      <div>SIGN IN</div>
+      <img :src="EAssets.LOGO" />
     </template>
     <template v-slot:fields>
       <CEnterField
@@ -30,7 +30,7 @@
 <script lang="ts">
 import LAuthForm from "@/layouts/LAuthForm.vue";
 import { ERouter } from "@/enums/routers";
-import { ECommon, EPlaceHolder } from "@/enums/common";
+import { EAssets, ECommon, EPlaceHolder } from "@/enums/common";
 import { defineComponent, ref } from "vue";
 import CButton from "@/components/CButton.vue";
 import CEnterField from "@/components/CEnterField.vue";
@@ -51,7 +51,16 @@ export default defineComponent({
       });
       router.push(ERouter.HOME);
     }
-    return { ECommon, EPlaceHolder, ERouter, router, email, password, signIn };
+    return {
+      ECommon,
+      EPlaceHolder,
+      ERouter,
+      router,
+      email,
+      password,
+      EAssets,
+      signIn,
+    };
   },
   components: { LAuthForm, CButton, CEnterField },
 });
