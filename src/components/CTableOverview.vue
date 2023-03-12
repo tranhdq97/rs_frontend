@@ -1,12 +1,6 @@
 <script lang="ts">
 import { ECommon } from "@/enums/common";
-import {
-  ESAuth,
-  ESCustomer,
-  ESMenu,
-  ESOrder,
-  ESOrderItem,
-} from "@/enums/store";
+import { ESAuth, ESCustomer, ESMenu, ESOrder, ESOrderItem } from "@/enums/store";
 import { IFMasterData } from "@/interfaces/common";
 import { IFCustomer } from "@/interfaces/customer";
 import { computed, defineComponent, ref } from "vue";
@@ -38,12 +32,7 @@ export default defineComponent({
       customers.value.map((item) =>
         data.push({
           id: item.id,
-          name:
-            item?.profile?.phone_number +
-            " - " +
-            item?.profile?.first_name +
-            " " +
-            item?.profile?.last_name,
+          name: item?.profile?.phone_number + " - " + item?.profile?.first_name + " " + item?.profile?.last_name,
         })
       );
       return data;
@@ -57,9 +46,7 @@ export default defineComponent({
       customers.value = res;
     }
     async function selectCustomer(item: IFMasterData) {
-      const selectedCustomer: IFCustomer | null = customers.value.find(
-        (cus) => cus.id === item.id
-      ) as IFCustomer;
+      const selectedCustomer: IFCustomer | null = customers.value.find((cus) => cus.id === item.id) as IFCustomer;
       if (selectedCustomer) {
         const res = await store.dispatch(ESOrder.A_UPDATE_ORDER, {
           order: props.order,
@@ -190,17 +177,9 @@ export default defineComponent({
       {{ $t(ECommon.PREVIEW) }}
     </div>
     <div class="container pre-order">
-      <CPreOrder
-        v-for="(item, i) in orderItemPreviewList"
-        :key="i"
-        :item="item"
-      />
+      <CPreOrder v-for="(item, i) in orderItemPreviewList" :key="i" :item="item" />
     </div>
-    <CButton
-      :name="ECommon.ORDER"
-      @click="handleOrder"
-      v-if="orderItemPreviewList.length"
-    />
+    <CButton :name="ECommon.ORDER" @click="handleOrder" v-if="orderItemPreviewList.length" />
   </div>
 </template>
 

@@ -23,14 +23,10 @@ export default defineComponent({
     function toDisplayingTime() {
       const timeDiff: IFTimeDiff | null = untilNow(props.mockTime);
       if (!timeDiff) return null;
-      if (timeDiff.diffDays)
-        return timeDiff.diffDays.toString() + " " + t(ECommon.DAYS);
-      else if (timeDiff.diffHours)
-        return timeDiff.diffHours.toString() + " " + t(ECommon.HOURS);
-      else if (timeDiff.diffMins)
-        return timeDiff.diffMins.toString() + " " + t(ECommon.MINUTES);
-      else if (timeDiff.diffSecs)
-        return timeDiff.diffSecs.toString() + " " + t(ECommon.SECONDS);
+      if (timeDiff.diffDays) return timeDiff.diffDays.toString() + " " + t(ECommon.DAYS);
+      else if (timeDiff.diffHours) return timeDiff.diffHours.toString() + " " + t(ECommon.HOURS);
+      else if (timeDiff.diffMins) return timeDiff.diffMins.toString() + " " + t(ECommon.MINUTES);
+      else if (timeDiff.diffSecs) return timeDiff.diffSecs.toString() + " " + t(ECommon.SECONDS);
       else return null;
     }
     amountTime.value = toDisplayingTime();

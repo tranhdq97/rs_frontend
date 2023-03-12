@@ -20,8 +20,7 @@ export default {
   } as IFState,
   getters: {
     tables: (state: IFState) => state.tables,
-    table: (state: IFState) => (id: number) =>
-      state.tables.find((table) => table.id === id),
+    table: (state: IFState) => (id: number) => state.tables.find((table) => table.id === id),
   },
   actions: {
     async addTable({ state }: { state: IFState }) {
@@ -32,37 +31,22 @@ export default {
       });
       state.tables.push(table);
     },
-    async getTables({
-      state,
-      dispatch,
-    }: {
-      state: IFState;
-      dispatch: Dispatch;
-    }) {
+    async getTables({ state, dispatch }: { state: IFState; dispatch: Dispatch }) {
       const tableRes: IAListRes = await axios.get(EATable.LIST);
       state.tables = tableRes.results as Array<IFTable>;
       if (state.tables) {
-        const orders = await dispatch(
-          ESOrder.A_GET_ORDERS,
-          tableRes.results as IFTable[],
-          { root: true }
-        );
+        const orders = await dispatch(ESOrder.A_GET_ORDERS, tableRes.results as IFTable[], { root: true });
         if (orders) {
           await dispatch(ESOrderItem.A_GET_ORDER_ITEMS, orders, { root: true });
         }
       }
     },
     async getTable({ state }: { state: IFState }, table: IFTable) {
-      const URL = formURL(EATable.DETAIL, [
-        { key: ERouterParams.INDEX, value: table.id },
-      ]);
+      const URL = formURL(EATable.DETAIL, [{ key: ERouterParams.INDEX, value: table.id }]);
       const res: IFTable = await axios.get(URL);
       return res;
     },
-    async initTable(
-      { dispatch, commit }: { dispatch: Dispatch; commit: Commit },
-      table: IFTable
-    ) {
+    async initTable({ dispatch, commit }: { dispatch: Dispatch; commit: Commit }, table: IFTable) {
       const resTable = await dispatch(ESTable.A_GET_TABLE, table, {
         root: true,
       });
@@ -72,13 +56,8 @@ export default {
         await dispatch(ESOrderItem.A_GET_ORDER_ITEM, order, { root: true });
       }
     },
-    async updateTable(
-      { state }: { state: IFState },
-      params: { table: IFTable; updateData: IFTable }
-    ) {
-      const URL = formURL(EATable.UPDATE, [
-        { key: ERouterParams.INDEX, value: params.table.id },
-      ]);
+    async updateTable({ state }: { state: IFState }, params: { table: IFTable; updateData: IFTable }) {
+      const URL = formURL(EATable.UPDATE, [{ key: ERouterParams.INDEX, value: params.table.id }]);
       await authAxios.put(URL, params.updateData);
       params.table = { ...params.table, ...params.updateData };
       return params.table;

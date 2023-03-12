@@ -37,18 +37,10 @@ export default defineComponent({
 <template>
   <div class="container">
     <div :class="'wrap' + (isDisabled ? ' disabled' : '')">
-      <span
-        class="material-icons action-icon"
-        v-if="!isDisabled && isChanging && content.length > 0"
-        @click="addInfo"
-      >
+      <span class="material-icons action-icon" v-if="!isDisabled && isChanging && content.length > 0" @click="addInfo">
         {{ actionIcon || "check" }}
       </span>
-      <span
-        :class="'material-icons' + (isDisabled ? ' disabled' : '')"
-        v-else-if="icon"
-        >{{ icon }}</span
-      >
+      <span :class="'material-icons' + (isDisabled ? ' disabled' : '')" v-else-if="icon">{{ icon }}</span>
       <input
         class="default"
         :type="type || 'text'"
@@ -60,12 +52,7 @@ export default defineComponent({
       />
     </div>
     <div class="recommend" v-if="isChanging && contentList?.length">
-      <div
-        v-for="(item, i) in contentList"
-        :key="i"
-        class="option"
-        @click="selectCustomer(item)"
-      >
+      <div v-for="(item, i) in contentList" :key="i" class="option" @click="selectCustomer(item)">
         {{ item.name }}
       </div>
     </div>

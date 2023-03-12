@@ -15,5 +15,8 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "prettier/prettier": ["error", { printWidth: 120, useTabs: false }],
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
   },
 };

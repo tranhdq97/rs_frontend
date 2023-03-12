@@ -6,7 +6,6 @@ import CImageUploader from "@/components/CImageUploader.vue";
 import CMenuItem from "@/components/CMenuItem.vue";
 import CSelection from "@/components/CSelection.vue";
 import CTextArea from "@/components/CTextArea.vue";
-import { ESFileManagement } from "@/enums/store";
 import { ECommon, EPlaceHolder } from "@/enums/common";
 import { ESAuth, ESMenu, ESMenuType } from "@/enums/store";
 import { EIDStaffType } from "@/enums/value_id";
@@ -14,6 +13,7 @@ import { IFMenuItem } from "@/interfaces/menu";
 import LAModal from "@/layouts/LAModal.vue";
 import { defineComponent, computed, ref } from "vue";
 import { useStore } from "vuex";
+import { IFFileManagement } from "@/interfaces/file_management";
 
 export default defineComponent({
   setup() {
@@ -26,27 +26,16 @@ export default defineComponent({
     const newMeal = ref<IFMenuItem>({
       name: "",
     });
-    const previewImage = ref("");
+    const uploadedImage = ref("");
     const isManager = computed(
-      () =>
-        staff.value?.type?.id &&
-        [EIDStaffType.MANAGER, EIDStaffType.SUPER_STAFF].includes(
-          staff.value.type.id
-        )
+      () => staff.value?.type?.id && [EIDStaffType.MANAGER, EIDStaffType.SUPER_STAFF].includes(staff.value.type.id)
     );
     const isAddMealAllowed = computed(
-      () =>
-        newMeal.value.name.length &&
-        newMeal.value?.type_id &&
-        newMeal.value?.price &&
-        newMeal.value?.photo_id
+      () => newMeal.value.name.length && newMeal.value?.type_id && newMeal.value?.price && newMeal.value?.photo_id
     );
-    async function handleImageUpload(e: Blob) {
-      const image = await store.dispatch(ESFileManagement.A_UPLOAD_FILE, {
-        file: e,
-      });
-      newMeal.value.photo_id = image.id;
-      previewImage.value = image.file;
+    async function handleImageUpload(fileManagement: IFFileManagement) {
+      newMeal.value.photo_id = fileManagement.id;
+      uploadedImage.value = fileManagement.file as string;
     }
     async function handleAddMeal() {
       await store.dispatch(ESMenu.A_ADD_MEAL, newMeal.value);
@@ -62,7 +51,7 @@ export default defineComponent({
       ECommon,
       EPlaceHolder,
       menuTypes,
-      previewImage,
+      uploadedImage,
       isAddMealAllowed,
       handleImageUpload,
       handleAddMeal,
@@ -82,7 +71,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container">
+  <div class="page">
     <CAddButton v-if="isManager" @click="isModalOpening = true" />
     <div class="menu-list">
       <CMenuItem v-for="(meal, id) in menu" :key="id" :meal="meal" />
@@ -113,25 +102,12 @@ export default defineComponent({
       type="textarea"
       @content="(value) => (newMeal.desc = value)"
     />
-    <CImageUploader
-      :title="ECommon.PHOTO"
-      :preview="previewImage"
-      @onFileSelected="(e) => handleImageUpload(e)"
-    />
-    <CButton
-      :name="ECommon.ADD_MEAL"
-      @click="handleAddMeal"
-      v-if="isAddMealAllowed"
-    />
+    <CImageUploader :title="ECommon.PHOTO" :uploaded="uploadedImage" @imageUpdated="(e) => handleImageUpload(e)" />
+    <CButton :name="ECommon.ADD_MEAL" @click="handleAddMeal" v-if="isAddMealAllowed" />
   </LAModal>
 </template>
 
 <style lang="scss" scoped>
-.container {
-  align-content: flex-start;
-  justify-content: space-between;
-  width: 100%;
-}
 .menu-list {
   gap: var(--s-large);
   flex-wrap: wrap;

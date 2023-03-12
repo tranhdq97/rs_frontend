@@ -10,8 +10,7 @@ export default {
     menuList: [],
   } as IFState,
   getters: {
-    isInCart: (state: IFState) => (menuID: number) =>
-      state.menuList.find((item) => item?.id === menuID),
+    isInCart: (state: IFState) => (menuID: number) => state.menuList.find((item) => item?.id === menuID),
   },
   actions: {},
 };

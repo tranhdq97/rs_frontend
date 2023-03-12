@@ -66,16 +66,8 @@ export default defineComponent({
           price: toExchange(item?.menu?.price || 0),
           created_at: toTime(item.created_at as Date),
           served_at: toTime(item.served_at as Date),
-          created_by: concatList(
-            [
-              item.created_by?.profile?.first_name,
-              item.created_by?.profile?.last_name,
-            ],
-            " "
-          ),
-          total: toExchange(
-            (item.served_quantity || 0) * (item?.menu?.price || 0)
-          ),
+          created_by: concatList([item.created_by?.profile?.first_name, item.created_by?.profile?.last_name], " "),
+          total: toExchange((item.served_quantity || 0) * (item?.menu?.price || 0)),
           iconClasses: {
             serve: item.quantity === item?.served_quantity ? "disabled" : "",
           },
@@ -86,12 +78,8 @@ export default defineComponent({
     const icons = {
       serve: "set_meal",
     };
-    const total_quantity = computed(() =>
-      sumProperty(props.orderedItemList, ["quantity"])
-    );
-    const total_served = computed(() =>
-      sumProperty(props.orderedItemList, ["served_quantity"])
-    );
+    const total_quantity = computed(() => sumProperty(props.orderedItemList, ["quantity"]));
+    const total_served = computed(() => sumProperty(props.orderedItemList, ["served_quantity"]));
     const amount = computed(() => {
       let sum = 0;
       (props.orderedItemList as IFOrderItem[]).map((item) => {
@@ -120,9 +108,7 @@ export default defineComponent({
     }
     async function clickRow(column: string, row: IFOrderedItemRep) {
       if (column === ECommon.SERVE) {
-        const activeItem = (props.orderedItemList as IFOrderItem[]).find(
-          (item) => item.id === row.id
-        );
+        const activeItem = (props.orderedItemList as IFOrderItem[]).find((item) => item.id === row.id);
         return activeItem ? serve(activeItem) : null;
       } else return;
     }
@@ -192,12 +178,7 @@ export default defineComponent({
       <span class="material-icons preview">preview</span>
     </div>
     <LAModal v-if="isServing" @close="isServing = false">
-      <COrderServe
-        :data="modal || {}"
-        @serveSubmit="
-          (payload) => serveSubmit(payload.item, payload.serveQuantity)
-        "
-      />
+      <COrderServe :data="modal || {}" @serveSubmit="(payload) => serveSubmit(payload.item, payload.serveQuantity)" />
     </LAModal>
   </div>
 </template>

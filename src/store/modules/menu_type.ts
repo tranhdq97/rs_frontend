@@ -17,17 +17,12 @@ export default {
     typeList: [],
   } as IFState,
   getters: {
-    menuTypes: (state: IFState) =>
-      state.typeList.sort((a, b) =>
-        (a?.name || "") < (b?.name || "") ? 1 : -1
-      ),
+    menuTypes: (state: IFState) => state.typeList.sort((a, b) => ((a?.name || "") < (b?.name || "") ? 1 : -1)),
   },
   actions: {
     async getMenuTypes({ state }: { state: IFState }) {
       const { t } = useI18n();
-      const URL = formURL(EAMaster.LIST, [
-        { key: ERouterParams.MASTER_NAME, value: EMasterModel.MENU_TYPE },
-      ]);
+      const URL = formURL(EAMaster.LIST, [{ key: ERouterParams.MASTER_NAME, value: EMasterModel.MENU_TYPE }]);
       const res: IAListRes = await axios.get(URL);
       state.typeList = res.results as IFMasterData[];
       state.typeList.map((item) => {

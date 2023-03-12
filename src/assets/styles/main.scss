@@ -35,8 +35,12 @@ a {
   color: var(--c-grey);
   box-sizing: border-box;
 }
-.container {
+.container,
+.page {
   flex-direction: column;
+}
+.page {
+  width: 100%;
 }
 .material-icons {
   font-size: var(--is-medium);
@@ -91,10 +95,6 @@ td {
 .no-wrap {
   white-space: nowrap;
 }
-// .mobile-hidden {
-//   visibility: hidden;
-  // display: none;
-// }
 select {
   border: none;
   padding: var(--s-small);

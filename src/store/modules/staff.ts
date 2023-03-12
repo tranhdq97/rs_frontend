@@ -29,13 +29,11 @@ export default {
     next: "",
   } as IFState,
   getters: {
-    staff: (state: IFState) => (id: number) =>
-      state.staffList.find((item) => item.id === id),
+    staff: (state: IFState) => (id: number) => state.staffList.find((item) => item.id === id),
     staffs: (state: IFState) => (staff: IFStaff) => {
       const staffs = state.staffList.filter(
         (item) =>
-          item.currentPage === (state.currentPage || 1) &&
-          ![staff?.type?.id || 0, 1].includes(item?.type?.id || 0)
+          item.currentPage === (state.currentPage || 1) && ![staff?.type?.id || 0, 1].includes(item?.type?.id || 0)
       );
       const staffReps: IFStaffRep[] = [];
       const { t } = useI18n();
@@ -65,12 +63,9 @@ export default {
     searchedStaffs: (state: IFState) => (value: string) => {
       state.staffList.find((item) => {
         const searchingList = [item.email];
-        if (item?.profile?.phone_number)
-          searchingList.push(item?.profile?.phone_number);
-        if (item?.profile?.first_name)
-          searchingList.push(item?.profile?.first_name);
-        if (item?.profile?.last_name)
-          searchingList.push(item?.profile?.last_name);
+        if (item?.profile?.phone_number) searchingList.push(item?.profile?.phone_number);
+        if (item?.profile?.first_name) searchingList.push(item?.profile?.first_name);
+        if (item?.profile?.last_name) searchingList.push(item?.profile?.last_name);
         return value in searchingList;
       });
     },
@@ -88,10 +83,7 @@ export default {
     },
     async nextPage({ state }: { state: IFState }) {
       if (!state.next) return;
-      if (
-        state.currentPage >= state.alreadyPage &&
-        state.currentPage < state.count
-      ) {
+      if (state.currentPage >= state.alreadyPage && state.currentPage < state.count) {
         const res: IAListRes = await authAxios.get(state.next);
         if (!(res.results as IFStaff[]).length) return;
         state.next = res.next as string;
@@ -108,13 +100,8 @@ export default {
       if (state.currentPage <= 1) return;
       state.currentPage = state.currentPage - 1;
     },
-    async updateStaff(
-      { commit }: { commit: Commit },
-      params: { staff: IFStaff; updateData: IFStaff }
-    ) {
-      const URL = formURL(EAStaff.UPDATE, [
-        { key: ERouterParams.INDEX, value: params.staff.id },
-      ]);
+    async updateStaff({ commit }: { commit: Commit }, params: { staff: IFStaff; updateData: IFStaff }) {
+      const URL = formURL(EAStaff.UPDATE, [{ key: ERouterParams.INDEX, value: params.staff.id }]);
       const res: IFStaff = await authAxios.put(URL, params.updateData);
       commit(ESStaff.M_UPDATE, res, { root: true });
       return res;
@@ -131,9 +118,7 @@ export default {
       state.staffList.push(staff);
     },
     update(state: IFState, staff: IFStaff) {
-      const updatingStaff = state.staffList.find(
-        (item) => staff.id === item?.id
-      ) as IFStaff;
+      const updatingStaff = state.staffList.find((item) => staff.id === item?.id) as IFStaff;
       if (updatingStaff) {
         updatingStaff.type = staff.type;
         updatingStaff.profile = staff.profile;

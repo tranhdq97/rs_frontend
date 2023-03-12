@@ -9,9 +9,7 @@ export default defineComponent({
   },
   emits: ["serveSubmit"],
   setup(props) {
-    const maxServeQuantity = computed(
-      () => props.data.quantity - props.data.served_quantity
-    );
+    const maxServeQuantity = computed(() => props.data.quantity - props.data.served_quantity);
     const serveQuantity = ref(maxServeQuantity.value);
     return { ECommon, serveQuantity, maxServeQuantity };
   },
@@ -32,27 +30,18 @@ export default defineComponent({
   <div class="modal">
     {{ $t(ECommon.SERVING_QUANTITY) }} :
     <div class="stretch"></div>
-    <span
-      :class="'material-icons ' + (serveQuantity <= 1 ? 'disabled' : '')"
-      @click="() => (serveQuantity -= 1)"
-    >
+    <span :class="'material-icons ' + (serveQuantity <= 1 ? 'disabled' : '')" @click="() => (serveQuantity -= 1)">
       remove
     </span>
     <span>{{ serveQuantity }}</span>
     <span
-      :class="
-        'material-icons ' +
-        (maxServeQuantity <= serveQuantity ? 'disabled' : '')
-      "
+      :class="'material-icons ' + (maxServeQuantity <= serveQuantity ? 'disabled' : '')"
       @click="() => (serveQuantity += 1)"
     >
       add
     </span>
   </div>
-  <CButton
-    :name="ECommon.SERVE"
-    @click="$emit('serveSubmit', { item: data, serveQuantity: serveQuantity })"
-  />
+  <CButton :name="ECommon.SERVE" @click="$emit('serveSubmit', { item: data, serveQuantity: serveQuantity })" />
 </template>
 
 <style lang="scss" scoped>

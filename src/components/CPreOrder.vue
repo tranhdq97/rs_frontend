@@ -1,13 +1,8 @@
 <template>
   <div class="wrap">
-    <span class="material-icons delete" @click="removeOrderItem">
-      delete_outline
-    </span>
+    <span class="material-icons delete" @click="removeOrderItem"> delete_outline </span>
     <div class="name">{{ item.menu.name }}</div>
-    <span
-      :class="'material-icons remove ' + (isDecreaseDisabled ? 'disabled' : '')"
-      @click="decreaseQuantity"
-    >
+    <span :class="'material-icons remove ' + (isDecreaseDisabled ? 'disabled' : '')" @click="decreaseQuantity">
       remove
     </span>
     <div class="quantity">{{ item.quantity }}</div>
@@ -27,12 +22,9 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const isDecreaseDisabled = computed(() => props.item.quantity <= 1);
-    const increaseQuantity = () =>
-      store.dispatch(ESOrderItem.A_INCREASE_QUANTITY, props.item);
-    const decreaseQuantity = () =>
-      store.dispatch(ESOrderItem.A_DECREASE_QUANTITY, props.item);
-    const removeOrderItem = () =>
-      store.commit(ESOrderItem.M_REMOVE_ORDER_ITEM, props.item);
+    const increaseQuantity = () => store.dispatch(ESOrderItem.A_INCREASE_QUANTITY, props.item);
+    const decreaseQuantity = () => store.dispatch(ESOrderItem.A_DECREASE_QUANTITY, props.item);
+    const removeOrderItem = () => store.commit(ESOrderItem.M_REMOVE_ORDER_ITEM, props.item);
     return {
       isDecreaseDisabled,
       increaseQuantity,

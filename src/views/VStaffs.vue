@@ -60,25 +60,19 @@ export default defineComponent({
     store.dispatch(ESStaffType.A_GET_STAFF_TYPES);
     store.dispatch(ESStaff.A_GET_STAFFS);
     const staffs = computed(() => store.getters[ESStaff.G_STAFFS](user));
-    const types = computed<IFMasterData[]>(
-      () => store.getters[ESStaffType.G_STAFF_TYPES]
-    );
+    const types = computed<IFMasterData[]>(() => store.getters[ESStaffType.G_STAFF_TYPES]);
     const isStatusChanging = ref(false);
     const modalStaff = ref<IFStaff>(staffs.value[0] || undefined);
     const availableTypes = ref<IFMasterData[]>([]);
     async function clickRow(column: string, row: IFStaffRep) {
       if (column === ETPCommon.DETAIL) {
-        const routeURL = formRouter(ERouter.STAFF, [
-          { key: ERouterParams.INDEX, value: row.id },
-        ]);
+        const routeURL = formRouter(ERouter.STAFF, [{ key: ERouterParams.INDEX, value: row.id }]);
         router.push(routeURL);
       } else if (column === ETPCommon.TYPE) {
         const staffObj = store.getters[ESStaff.G_STAFF](row.id);
         const user = store.getters[ESAuth.G_USER];
         modalStaff.value = staffObj;
-        availableTypes.value = types.value.filter(
-          (item) => (item.id || Infinity) > user.type.id
-        );
+        availableTypes.value = types.value.filter((item) => (item.id || Infinity) > user.type.id);
         isStatusChanging.value = true;
       } else return;
     }
@@ -100,14 +94,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container wrap">
+  <div class="page wrap">
     <table>
-      <CTableRow
-        :isHeader="true"
-        :columns="columns"
-        class="header"
-        :headers="headers"
-      />
+      <CTableRow :isHeader="true" :columns="columns" class="header" :headers="headers" />
       <tbody>
         <CTableRow
           v-for="(row, i) in staffs"
@@ -122,10 +111,7 @@ export default defineComponent({
       </tbody>
     </table>
     <LAModal v-if="isStatusChanging" @close="isStatusChanging = false">
-      <CStaffTypeUpdpate
-        :updatedStaff="modalStaff"
-        :availableTypes="availableTypes"
-      />
+      <CStaffTypeUpdpate :updatedStaff="modalStaff" :availableTypes="availableTypes" />
     </LAModal>
   </div>
 </template>

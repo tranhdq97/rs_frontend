@@ -28,10 +28,7 @@ export default {
       if (params?.name) form.append("name", params.file.name);
       if (params?.desc) form.append("desc", params.desc);
       if (params?.type_id) form.append("type_id", params.type_id.toString());
-      const res: IFFileManagement = await authAxios.post(
-        EAFileManagement.CREATE,
-        form
-      );
+      const res: IFFileManagement = await authAxios.post(EAFileManagement.CREATE, form);
       return res;
     },
   },

@@ -67,10 +67,4 @@ authAxios.interceptors.response.use(
   }
 );
 
-createApp(App)
-  .use(i18n)
-  .use(store)
-  .use(router)
-  .use(vueClickOutsideElement)
-  .use(VueCookies)
-  .mount("#app");
+createApp(App).use(i18n).use(store).use(router).use(vueClickOutsideElement).use(VueCookies).mount("#app");

@@ -24,14 +24,10 @@ export default {
   },
   getters: {
     orderItemPreviewList: (state: IFState) => (table: IFTable) => {
-      return state.orderItemList.filter(
-        (item) => item?.table?.id === table.id && !item.updated_at
-      );
+      return state.orderItemList.filter((item) => item?.table?.id === table.id && !item.updated_at);
     },
     orderedItemList: (state: IFState) => (table: IFTable) => {
-      return state.orderItemList.filter(
-        (item) => item?.table?.id === table.id && item.updated_at
-      );
+      return state.orderItemList.filter((item) => item?.table?.id === table.id && item.updated_at);
     },
     tableRepData: (state: IFState) => (table: IFTable) => {
       let lastServedAt: Date = null as unknown as Date;
@@ -49,20 +45,14 @@ export default {
           }
           if (item.served_at) {
             if (lastServedAt) {
-              lastServedAt = new Date(
-                item.served_at > lastServedAt ? item.served_at : lastServedAt
-              );
+              lastServedAt = new Date(item.served_at > lastServedAt ? item.served_at : lastServedAt);
             } else {
               lastServedAt = new Date(item.served_at);
             }
           }
           if (item.updated_at) {
             if (newestOrderedAt) {
-              newestOrderedAt = new Date(
-                item.updated_at > newestOrderedAt
-                  ? item.updated_at
-                  : newestOrderedAt
-              );
+              newestOrderedAt = new Date(item.updated_at > newestOrderedAt ? item.updated_at : newestOrderedAt);
             } else {
               newestOrderedAt = new Date(item.updated_at);
             }
@@ -92,10 +82,7 @@ export default {
     ) {
       if (
         state.orderItemList.some(
-          (item: IFOrderItem) =>
-            item.menu.id === params.menu.id &&
-            item.table === params.table &&
-            !item.order
+          (item: IFOrderItem) => item.menu.id === params.menu.id && item.table === params.table && !item.order
         )
       )
         return;
@@ -119,11 +106,7 @@ export default {
         return;
       }
       const orderIDs = concatProperty(orders, EPCommon.ID, ",");
-      const URL = formURL(
-        EAOrderItem.LIST,
-        [],
-        [{ key: EPOrderItem.ORDER_ID__IN, value: orderIDs }]
-      );
+      const URL = formURL(EAOrderItem.LIST, [], [{ key: EPOrderItem.ORDER_ID__IN, value: orderIDs }]);
       const res: IAListRes = await authAxios.get(URL);
       state.orderItemList = res.results as IFOrderItem[];
       state.orderItemList.map((item) => {
@@ -132,11 +115,7 @@ export default {
     },
     async getOrderItem({ commit }: { commit: Commit }, order: IFOrder) {
       const orderIDs = concatProperty([order], EPCommon.ID, ",");
-      const URL = formURL(
-        EAOrderItem.LIST,
-        [],
-        [{ key: EPOrderItem.ORDER_ID__IN, value: orderIDs }]
-      );
+      const URL = formURL(EAOrderItem.LIST, [], [{ key: EPOrderItem.ORDER_ID__IN, value: orderIDs }]);
       const res: IAListRes = await authAxios.get(URL);
       const orderItems = res.results as IFOrderItem[];
       orderItems.map((item) => {
@@ -145,11 +124,7 @@ export default {
       });
     },
     async order(
-      {
-        state,
-        commit,
-        dispatch,
-      }: { state: IFState; commit: Commit; dispatch: Dispatch },
+      { state, commit, dispatch }: { state: IFState; commit: Commit; dispatch: Dispatch },
       params: {
         table: IFTable;
         items: IFOrderItem[];
@@ -184,14 +159,10 @@ export default {
       params.items.map(async (previewOrderItem: IFOrderItem) => {
         const orderedItem = state.orderItemList.find(
           (item: IFOrderItem) =>
-            previewOrderItem.menu.id === item.menu.id &&
-            previewOrderItem.table?.id === item?.table?.id &&
-            item.order
+            previewOrderItem.menu.id === item.menu.id && previewOrderItem.table?.id === item?.table?.id && item.order
         );
         if (orderedItem) {
-          const updateURL = formURL(EAOrderItem.UPDATE, [
-            { key: ERouterParams.INDEX, value: orderedItem.id },
-          ]);
+          const updateURL = formURL(EAOrderItem.UPDATE, [{ key: ERouterParams.INDEX, value: orderedItem.id }]);
           const res: IFOrderItem = await authAxios.put(updateURL, {
             quantity: orderedItem.quantity + previewOrderItem.quantity,
             created_by_id: params.staff.id,
@@ -216,16 +187,10 @@ export default {
         });
       });
     },
-    async serve(
-      { commit }: { commit: Commit },
-      params: { item: IFOrderItem; serveQuantity: number }
-    ) {
-      const URL = formURL(EAOrderItem.UPDATE, [
-        { key: ERouterParams.INDEX, value: params.item.id },
-      ]);
+    async serve({ commit }: { commit: Commit }, params: { item: IFOrderItem; serveQuantity: number }) {
+      const URL = formURL(EAOrderItem.UPDATE, [{ key: ERouterParams.INDEX, value: params.item.id }]);
       const res: IFOrderItem = await authAxios.put(URL, {
-        served_quantity:
-          (params.item?.served_quantity || 0) + params.serveQuantity,
+        served_quantity: (params.item?.served_quantity || 0) + params.serveQuantity,
         served_at: new Date(Date.now()).toISOString(),
       });
       res.served_at = new Date(res.served_at as string);
@@ -239,12 +204,8 @@ export default {
         orderItems: IFOrderItem[];
       }
     ) {
-      params.orderItems.map((item) =>
-        commit(ESOrderItem.M_REMOVE_ORDER_ITEM, item, { root: true })
-      );
-      const URL = formURL(EAOrder.UPDATE, [
-        { key: ERouterParams.INDEX, value: params.order.id },
-      ]);
+      params.orderItems.map((item) => commit(ESOrderItem.M_REMOVE_ORDER_ITEM, item, { root: true }));
+      const URL = formURL(EAOrder.UPDATE, [{ key: ERouterParams.INDEX, value: params.order.id }]);
       await authAxios.put(URL, {
         paid_at: new Date(Date.now()).toISOString(),
       });
@@ -257,11 +218,8 @@ export default {
         { root: true }
       );
       commit(ESOrder.M_REMOVE_ORDER, params.order, { root: true });
-      if (params?.customer)
-        commit(ESCustomer.M_REMOVE_CUSTOMER, params.customer, { root: true });
-      params.orderItems.map((item) =>
-        commit(ESOrderItem.M_REMOVE_ORDER_ITEM, item, { root: true })
-      );
+      if (params?.customer) commit(ESCustomer.M_REMOVE_CUSTOMER, params.customer, { root: true });
+      params.orderItems.map((item) => commit(ESOrderItem.M_REMOVE_ORDER_ITEM, item, { root: true }));
     },
   },
   mutations: {
@@ -270,9 +228,7 @@ export default {
       index > -1 ? state.orderItemList.splice(index, 1) : null;
     },
     update(state: IFState, orderItem: IFOrderItem) {
-      const updatingOrderItem = state.orderItemList.find(
-        (item) => orderItem.id === item?.id
-      );
+      const updatingOrderItem = state.orderItemList.find((item) => orderItem.id === item?.id);
       if (updatingOrderItem) {
         updatingOrderItem.order = orderItem.order;
         updatingOrderItem.menu = orderItem.menu;

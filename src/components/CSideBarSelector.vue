@@ -1,8 +1,5 @@
 <template v-show="!isNotAllowed">
-  <router-link
-    :to="to"
-    :class="'wrapper' + (notActiveAllowed ? ' not-allowed-active' : '')"
-  >
+  <router-link :to="to" :class="'wrapper' + (notActiveAllowed ? ' not-allowed-active' : '')">
     <span :class="'material-icons-round'">{{ icon }}</span>
     <div class="title" v-show="!isSideBarCollapsed">{{ $t(title) }}</div>
   </router-link>
@@ -22,9 +19,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const isSideBarCollapsed = computed(
-      () => store.getters[ESSideBar.G_IS_SIDEBAR_COLLAPSED]
-    );
+    const isSideBarCollapsed = computed(() => store.getters[ESSideBar.G_IS_SIDEBAR_COLLAPSED]);
     return { isSideBarCollapsed };
   },
 });

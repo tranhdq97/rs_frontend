@@ -1,13 +1,7 @@
 <template>
   <div class="container">
     <div class="title">{{ $t(title) }}</div>
-    <textarea
-      :type="type"
-      :placeholder="$t(placeHolder)"
-      v-model="value"
-      @input="$emit('content', value)"
-    >
-    </textarea>
+    <textarea :type="type" :placeholder="$t(placeHolder)" v-model="value" @input="$emit('content', value)"> </textarea>
   </div>
 </template>
 

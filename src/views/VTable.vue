@@ -13,23 +13,13 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const tableIndex = router.currentRoute.value.params.id as string;
-    const table = computed(() =>
-      store.getters[ESTable.G_TABLE](parseInt(tableIndex))
-    );
+    const table = computed(() => store.getters[ESTable.G_TABLE](parseInt(tableIndex)));
     store.dispatch(ESTable.A_INIT_TABLE, table.value);
     if (!table.value) router.push(ERouter.TABLES);
-    const orderItemPreviewList = computed(() =>
-      store.getters[ESOrderItem.G_ORDER_PREVIEW_LIST](table.value)
-    );
-    const tableOrder = computed(() =>
-      store.getters[ESOrder.G_ORDER_BY_TABLE](table.value)
-    );
-    const customer = computed(() =>
-      store.getters[ESCustomer.G_CUSTOMER_BY_ORDER](tableOrder.value)
-    );
-    const orderedItemList = computed(() =>
-      store.getters[ESOrderItem.G_ORDERED_LIST](table.value)
-    );
+    const orderItemPreviewList = computed(() => store.getters[ESOrderItem.G_ORDER_PREVIEW_LIST](table.value));
+    const tableOrder = computed(() => store.getters[ESOrder.G_ORDER_BY_TABLE](table.value));
+    const customer = computed(() => store.getters[ESCustomer.G_CUSTOMER_BY_ORDER](tableOrder.value));
+    const orderedItemList = computed(() => store.getters[ESOrderItem.G_ORDERED_LIST](table.value));
     const handleSelect = (item: IFMenuItem) => {
       store.dispatch(ESOrderItem.A_ADD_TO_ORDER_PREVIEW, {
         menu: item,
@@ -58,12 +48,7 @@ export default defineComponent({
       :customer="customer"
       @handleSelect="(item) => handleSelect(item)"
     />
-    <CTableOrder
-      :orderedItemList="orderedItemList"
-      :table="table"
-      :order="tableOrder"
-      :customer="customer"
-    />
+    <CTableOrder :orderedItemList="orderedItemList" :table="table" :order="tableOrder" :customer="customer" />
   </div>
 </template>
 

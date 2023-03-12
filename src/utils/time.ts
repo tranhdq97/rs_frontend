@@ -27,11 +27,7 @@ export function toDMY(time: Date, factor: string): string {
   if (!time) return "";
   const dateTime = new Date(time);
   return concatList(
-    [
-      addPaddingNumber(dateTime.getDay(), 2),
-      addPaddingNumber(dateTime.getMonth(), 2),
-      dateTime.getFullYear(),
-    ],
+    [addPaddingNumber(dateTime.getDay(), 2), addPaddingNumber(dateTime.getMonth(), 2), dateTime.getFullYear()],
     factor
   );
 }

@@ -43,21 +43,13 @@ export default {
       );
       return customer;
     },
-    async updateCustomer(
-      { commit }: { commit: Commit },
-      params: { customer: IFCustomer; updateData: IFCustomer }
-    ) {
-      const URL = formURL(EACustomer.UPDATE, [
-        { key: ERouterParams.INDEX, value: params.customer.id },
-      ]);
+    async updateCustomer({ commit }: { commit: Commit }, params: { customer: IFCustomer; updateData: IFCustomer }) {
+      const URL = formURL(EACustomer.UPDATE, [{ key: ERouterParams.INDEX, value: params.customer.id }]);
       const res: IFCustomer = await authAxios.put(URL, params.updateData);
       commit(ESCustomer.M_UPDATE, res, { root: true });
       return res;
     },
-    async searchCustomerByPhoneNumber(
-      { state }: { state: IFState },
-      phoneNumber: string
-    ) {
+    async searchCustomerByPhoneNumber({ state }: { state: IFState }, phoneNumber: string) {
       const URL = formURL(
         EACustomer.LIST,
         [],
@@ -83,9 +75,7 @@ export default {
       state.customerList.push(customer);
     },
     update(state: IFState, customer: IFCustomer) {
-      const updatingCustomer = state.customerList.find(
-        (item) => customer.id === item?.id
-      ) as IFCustomer;
+      const updatingCustomer = state.customerList.find((item) => customer.id === item?.id) as IFCustomer;
       if (updatingCustomer) {
         updatingCustomer.profile = customer.profile;
       } else {

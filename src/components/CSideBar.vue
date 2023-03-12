@@ -20,13 +20,9 @@ export default defineComponent({
     const initLocale = localStorage.getItem(ECommon.LOCALE);
     store.dispatch(ESMenuType.A_GET_MENU_TYPES);
     i18n.setLocale(initLocale ? initLocale : ELanguageCodes.VIETNAMESE);
-    const staffTypeID = computed<number>(
-      () => store.getters[ESAuth.G_USER]?.type?.id || -1
-    );
+    const staffTypeID = computed<number>(() => store.getters[ESAuth.G_USER]?.type?.id || -1);
     const isSideBarHide = ref(true);
-    const isSideBarExpanded = computed(
-      () => store.getters[ESSideBar.G_IS_SIDEBAR_COLLAPSED]
-    );
+    const isSideBarExpanded = computed(() => store.getters[ESSideBar.G_IS_SIDEBAR_COLLAPSED]);
     const isTablesNotAllowed = computed(() => {
       const notAllowedRoles = router.resolve(ERouter.TABLES);
       return (notAllowedRoles?.meta?.notAllowedRoles as []).some(
@@ -49,8 +45,7 @@ export default defineComponent({
       store.dispatch(ESSideBar.A_COLLAPSE_SIDEBAR);
     };
     const toggleSideBar = () => {
-      if (mediaQuery.matches)
-        isSideBarCollapsed.value = !isSideBarCollapsed.value;
+      if (mediaQuery.matches) isSideBarCollapsed.value = !isSideBarCollapsed.value;
       store.dispatch(ESSideBar.A_TOGGLE_SIDEBAR);
     };
     const signOut = () => {
@@ -60,8 +55,7 @@ export default defineComponent({
     watch(
       () => router.currentRoute.value.name,
       (currentRoute) => {
-        currentRoute === ERouterName.SIGNUP ||
-        currentRoute === ERouterName.SIGNIN
+        currentRoute === ERouterName.SIGNUP || currentRoute === ERouterName.SIGNIN
           ? (isSideBarHide.value = true)
           : (isSideBarHide.value = false);
       }
@@ -90,20 +84,11 @@ export default defineComponent({
   <div class="container box-shadow" v-show="!isSideBarHide && staffTypeID > 0">
     <div class="menu">
       <span class="material-icons" @click="toggleSideBar">menu</span>
-      <span
-        class="material-icons chevron-left"
-        v-if="!isSideBarExpanded && !mediaQuery.matches"
-        @click="expandSideBar"
-      >
+      <span class="material-icons chevron-left" v-if="!isSideBarExpanded && !mediaQuery.matches" @click="expandSideBar">
         chevron_left
       </span>
     </div>
-    <CSideBarSelector
-      :title="ECommon.MENU"
-      icon="menu_book"
-      :to="ERouter.MENU"
-      v-if="!isSideBarCollapsed"
-    />
+    <CSideBarSelector :title="ECommon.MENU" icon="menu_book" :to="ERouter.MENU" v-if="!isSideBarCollapsed" />
     <CSideBarSelector
       v-if="!isTablesNotAllowed && !isSideBarCollapsed"
       :title="ECommon.TABLES"

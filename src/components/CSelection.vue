@@ -2,12 +2,7 @@
   <div class="container">
     <div v-if="title" class="title">{{ $t(title) }}</div>
     <select @change="(e) => $emit('select', parseInt(e.target?.value))">
-      <option
-        v-for="(item, idx) in selectList"
-        :key="idx"
-        :selected="item?.id === defaultID"
-        :value="item.id"
-      >
+      <option v-for="(item, idx) in selectList" :key="idx" :selected="item?.id === defaultID" :value="item.id">
         {{ item?.name || "" }}
       </option>
     </select>

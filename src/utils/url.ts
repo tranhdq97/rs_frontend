@@ -4,7 +4,7 @@ export function formURL(
   baseURL: string,
   replaced_params?: Array<IFRouterParams>,
   params?: Array<IFRouterParams>
-) {
+): string {
   replaced_params?.map((val) => {
     if (val.value) baseURL = baseURL.replace(val.key, val.value.toString());
   });

@@ -15,8 +15,7 @@ export default {
   },
   getters: {
     menu: (state: IFState) => state.menu,
-    availableMenu: (state: IFState) =>
-      state.menu.filter((item) => item.is_available),
+    availableMenu: (state: IFState) => state.menu.filter((item) => item.is_available),
   },
   actions: {
     async getMenu({ state }: { state: IFState }) {

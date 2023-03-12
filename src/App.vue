@@ -1,6 +1,6 @@
 <template>
   <CSideBar />
-  <div class="container router-view">
+  <div class="page router-view">
     <router-view />
   </div>
 </template>

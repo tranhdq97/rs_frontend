@@ -16,9 +16,7 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const selectedId = ref(props.updatedStaff.type.id);
-    const isChanged = computed(
-      () => selectedId.value !== props.updatedStaff.type.id
-    );
+    const isChanged = computed(() => selectedId.value !== props.updatedStaff.type.id);
     async function update() {
       await store.dispatch(ESStaff.A_UPDATE_STAFF, {
         staff: props.updatedStaff,
@@ -35,12 +33,7 @@ export default defineComponent({
   <div class="wrap">
     <div class="info-row">
       <span class="material-icons">badge</span>
-      {{
-        concatList(
-          [updatedStaff?.profile?.first_name, updatedStaff?.profile?.last_name],
-          " "
-        )
-      }}
+      {{ concatList([updatedStaff?.profile?.first_name, updatedStaff?.profile?.last_name], " ") }}
     </div>
     <div class="info-row">
       <span class="material-icons">contact_phone</span>

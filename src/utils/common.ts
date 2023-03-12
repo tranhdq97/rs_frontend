@@ -1,4 +1,4 @@
-import { ECommon } from "@/enums/common";
+import { EAssets, ECommon } from "@/enums/common";
 
 export function toExchange(money: number): string {
   const currentLocale = localStorage.getItem(ECommon.LOCALE)?.toString();
@@ -24,11 +24,7 @@ export function sumProperty(array: any[], properties: string[]): number {
   return sum;
 }
 
-export function concatProperty(
-  array: any[],
-  property: string,
-  factor: string
-): string {
+export function concatProperty(array: any[], property: string, factor: string): string {
   let text = "";
   array.map((item: any, index: number) => {
     text += (index === 0 ? "" : factor) + item[property];
@@ -46,4 +42,8 @@ export function concatList(array: any[], factor: string): string {
     if (item) text += (index === 0 ? "" : factor) + item;
   });
   return text;
+}
+
+export function toImgUrl(imgUrl: string): string {
+  return imgUrl ? imgUrl : EAssets.DEFAULT_IMG;
 }

@@ -37,24 +37,14 @@ export default defineComponent({
 <template>
   <div class="container">
     <div class="wrap">
-      <input
-        :type="type"
-        :placeholder="$t(placeHolder)"
-        v-model="searchValue"
-        @keyup="handleSearch"
-      />
+      <input :type="type" :placeholder="$t(placeHolder)" v-model="searchValue" @keyup="handleSearch" />
     </div>
     <div
       class="recommend"
       v-if="searchedList.length && searchValue.length && !isRecommendClosed"
       v-click-outside-element="closeRecommend"
     >
-      <div
-        v-for="(item, i) in searchedList"
-        :key="i"
-        class="option"
-        @click="$emit('handleSelect', item)"
-      >
+      <div v-for="(item, i) in searchedList" :key="i" class="option" @click="$emit('handleSelect', item)">
         {{ item.name }}
       </div>
     </div>

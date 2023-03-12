@@ -1,12 +1,7 @@
 <template>
   <div class="container">
     <div class="title">{{ $t(title) }}</div>
-    <input
-      :type="type"
-      :placeholder="$t(placeHolder)"
-      v-model="value"
-      @input="$emit('content', value)"
-    />
+    <input :type="type" :placeholder="$t(placeHolder)" v-model="value" @input="$emit('content', value)" />
   </div>
 </template>
 

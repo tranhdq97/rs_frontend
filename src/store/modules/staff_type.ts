@@ -17,17 +17,12 @@ export default {
     typeList: [],
   } as IFState,
   getters: {
-    staffTypes: (state: IFState) =>
-      state.typeList.sort((a, b) =>
-        (a?.name || "") < (b?.name || "") ? 1 : -1
-      ),
+    staffTypes: (state: IFState) => state.typeList.sort((a, b) => ((a?.name || "") < (b?.name || "") ? 1 : -1)),
   },
   actions: {
     async getStaffTypes({ state }: { state: IFState }) {
       const { t } = useI18n();
-      const URL = formURL(EAMaster.LIST, [
-        { key: ERouterParams.MASTER_NAME, value: EMasterModel.STAFF_TYPE },
-      ]);
+      const URL = formURL(EAMaster.LIST, [{ key: ERouterParams.MASTER_NAME, value: EMasterModel.STAFF_TYPE }]);
       const res: IAListRes = await axios.get(URL);
       state.typeList = res.results as IFMasterData[];
       state.typeList.map((item) => {

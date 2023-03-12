@@ -107,11 +107,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const user: IFStaff = store.getters[ESAuth.G_USER];
-  if (
-    to.matched.some(
-      (record) => record?.meta?.authRequired && record?.meta?.notAllowedRoles
-    )
-  ) {
+  if (to.matched.some((record) => record?.meta?.authRequired && record?.meta?.notAllowedRoles)) {
     const notAllowedRoleList = (to.meta.notAllowedRoles as number[]) || [];
     if (user && notAllowedRoleList.includes(user?.type?.id || -1)) {
       alert(i18n.t(EMessage.PERMISSION_DENIED));
