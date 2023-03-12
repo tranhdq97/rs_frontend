@@ -1,20 +1,18 @@
 <template>
   <thead v-if="isHeader">
     <tr>
-      <th v-for="(column, i) in columns" :key="i">{{ $t(column) }}</th>
+      <th v-for="(column, i) in (columns as string[])" :key="i">
+        {{ $t((headers || {})[column]) }}
+      </th>
     </tr>
   </thead>
   <tr v-else>
-    <td
-      v-for="column in (columns as string[])"
-      :key="column"
-      @click="(funcs || {})[column]"
-    >
-      <div :class="(classes || {})[column] + ' center'">
+    <td v-for="column in (columns as string[])" :key="column">
+      <div :class="(classes || {})[column]">
         {{ column ? (row || {})[column] : "" }}
         <span
           v-if="(icons || {})[column]"
-          class="material-icons"
+          :class="'material-icons ' + (row?.iconClasses || {})[column]"
           @click="$emit('spanClicked', column)"
           >{{ (icons || {})[column] }}</span
         >
@@ -30,9 +28,9 @@ export default defineComponent({
   props: {
     isHeader: { type: Boolean, required: false },
     columns: { type: Array, required: true },
+    headers: { type: Object, required: false },
     row: { type: Object, required: false },
     icons: { type: Object, required: false },
-    funcs: { type: Object, required: false },
     classes: { type: Object, required: false },
   },
   emits: ["spanClicked"],
@@ -56,8 +54,5 @@ span:hover {
 }
 div {
   gap: var(--s-small);
-}
-.center {
-  align-items: center;
 }
 </style>

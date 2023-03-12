@@ -43,3 +43,25 @@ export enum ETPMasterCity {
   COUNTRY = "country",
   COUNTRY_ID = "country_id",
 }
+
+export enum ETPMenu {
+  PRICE = "price",
+}
+
+export enum ETPOrderItem {
+  ORDER = "order",
+  MENU = "menu",
+  CREATED_BY = "created_by",
+  QUANTITY = "quantity",
+  SERVED_QUANTITY = "served_quantity",
+  SERVED_AT = "served_at",
+}
+
+export enum ETPOrder {
+  TABLE = "table",
+  TABLE_ID = "table_id",
+  CUSTOMER = "customer",
+  CUSTOMER_ID = "customer_id",
+  PAID_AT = "paid_at",
+  NUM_PEOPLE = "num_people",
+}

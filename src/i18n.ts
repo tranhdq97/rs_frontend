@@ -61,6 +61,7 @@ const messages = {
     add_meal: "add meal",
     meal_type: "meal type",
     photo: "photo",
+    created_by: "created by",
     // Staff type
     employee: "employee",
     manager: "manager",
@@ -132,6 +133,7 @@ const messages = {
     add_meal: "thêm món",
     meal_type: "loại món ăn",
     photo: "ảnh",
+    created_by: "tạo bởi",
     // Staff type
     employee: "nhân viên",
     manager: "quản lý",
