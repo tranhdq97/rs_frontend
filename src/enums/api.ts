@@ -12,7 +12,7 @@ export enum EAAuth {
   TOKEN = "/api/auth/token",
   REFRESH_TOKEN = "/api/auth/token/refresh",
   GET_ME = "/api/auth/get-me",
-  CHANGE_PASSWORD = "api/auth/change-password",
+  CHANGE_PASSWORD = "/api/auth/change-password",
 }
 
 export enum EACustomer {
